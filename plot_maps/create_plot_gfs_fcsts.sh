@@ -13,20 +13,21 @@ echo ${INITDATE} ${CYC} ${FHR}
 
 mkdir -p ${OUTPUT_PATH}
 mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/scripts
+mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp
 
 #################################################################################################
 #-----------------------------------------------------------------------------------------
 # Creating a job to plot GFS forecasts for a particular initialization date and cycle
 #-----------------------------------------------------------------------------------------
 
-cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/scripts/plot_gfs_slp_3panel.py <<EOF
+cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/scripts/plot_gfs_mslp_3panel.py <<EOF
 #!/bin/bash
-#PBS -N gfs_f${FHR}_plot
-#PBS -o ${OUTPUT_PATH}/out_plot_gfs_slp_${INITDATE}${CYC}_f${FHR}.out
-#PBS -e ${OUTPUT_PATH}/out_plot_gfs_slp_${INITDATE}${CYC}_f${FHR}.err
-#PBS -l select=1:ncpus=1:mem=20GB
+#PBS -N gfs_mslp_plot
+#PBS -o ${OUTPUT_PATH}/out_plot_gfs_mslp_${INITDATE}${CYC}.out
+#PBS -e ${OUTPUT_PATH}/out_plot_gfs_mslp_${INITDATE}${CYC}.err
+#PBS -l select=1:ncpus=1:mem=200GB
 #PBS -q dev
-#PBS -l walltime=00:10:00
+#PBS -l walltime=03:00:00
 #PBS -A VERF-DEV
 
 module load prod_envir/2.0.6
@@ -44,16 +45,14 @@ module load libjpeg/9c
 module load grib_util/1.2.4
 
 cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/scripts
-cp ${SCRIPTS_PATH}/plot_gfs_slp_3panel.py .
+cp ${SCRIPTS_PATH}/plot_gfs_mslp_3panel.py .
 
-	export FHHH=${FHR}
+	#export FHHH=${FHR}
 
-        #/bin/rm -rf ${MAP_PATH}/gfs/${INITDATE}${CYC}/gfs_*_slp_${CASE}_${COUNTER}.png
-
-	python plot_gfs_slp_3panel.py ${INITDATE} ${CYC} ${FHR} ${DOMAIN_ARRAY} ${DATA_PATH} ${CASE}
+	python plot_gfs_mslp_3panel.py ${INITDATE} ${CYC}
         sleep 3
 
-#mv gfs_*_slp_${CASE}_*.png ${MAP_PATH}/gfs/${INITDAT}${CYC}/.
+mv image_*.png ${MAP_PATH}/gfs/${INITDAT}${CYC}/mslp/.
 
 exit
 
@@ -61,7 +60,7 @@ EOF
 
 #----------------------------------------------------------------------------------------
 
-qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/scripts/plot_gfs_slp_3panel.py
+qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/scripts/plot_gfs_mslp_3panel.py
 sleep 3
 
 #----------------------------------------------------------------------------------------
