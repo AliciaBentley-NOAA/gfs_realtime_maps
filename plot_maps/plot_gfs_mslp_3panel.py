@@ -112,7 +112,7 @@ for fhr in range(0, 193, 6):
     plot_configs = [
         {'data': mslp_data_v16, 'cmap': 'gist_rainbow',      'norm': mslp_norm, 'levels': mslp_levels, 'title': 'GFSv16 MSLP (hPa)'},
         {'data': mslp_data_v17, 'cmap': 'gist_rainbow',      'norm': mslp_norm, 'levels': mslp_levels, 'title': 'GFSv17 MSLP (hPa)'},
-        {'data': diff_data,     'cmap': 'seismic', 'norm': diff_norm, 'levels': diff_levels, 'title': 'GFSv17 MSLP minus GFSv16 MSLP (hPa)'}
+        {'data': diff_data,     'cmap': 'seismic', 'norm': diff_norm, 'levels': diff_levels, 'title': 'GFSv17 minus GFSv16 MSLP (hPa)'}
     ]
 
     # Define the grid locations: [row, col] or [row, span]
