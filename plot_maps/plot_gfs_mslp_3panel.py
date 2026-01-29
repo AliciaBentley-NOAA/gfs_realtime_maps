@@ -40,8 +40,8 @@ init_dt = datetime.strptime(init_str, "%Y%m%d").replace(hour=init_hour)
 img_counter=0
 print("img_counter:", img_counter)
 
-for fhr in range(0, 385, 6):
-#for fhr in range(0, 13, 6):
+for fhr in range(0, 193, 6):
+#for fhr in range(0, 385, 6):
     # Use f-string to format with leading zeros (e.g., 000, 006)
     fhr_str = f"{fhr:03d}"
     fcst_hour= int(fhr)
@@ -92,8 +92,8 @@ for fhr in range(0, 385, 6):
     mslp_levels = np.arange(968, 1056, 4)
 
     # New normalization for the difference plot to ensure 0 is white
-    diff_norm = mcolors.TwoSlopeNorm(vcenter=0, vmin=-20, vmax=20)
-    diff_levels = np.arange(-20, 21, 1)
+    diff_norm = mcolors.TwoSlopeNorm(vcenter=0, vmin=-40, vmax=40)
+    diff_levels = np.arange(-40, 41, 2)
 
     # Take 42 colors from the 'seismic' colormap
     base_cmap = plt.get_cmap('seismic', 42)

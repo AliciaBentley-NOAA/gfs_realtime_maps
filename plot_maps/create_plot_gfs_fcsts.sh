@@ -27,7 +27,7 @@ cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/scripts/plot_gfs_mslp_3panel.py <<EOF
 #PBS -e ${OUTPUT_PATH}/out_plot_gfs_mslp_${INITDATE}${CYC}.err
 #PBS -l select=1:ncpus=1:mem=200GB
 #PBS -q dev
-#PBS -l walltime=03:00:00
+#PBS -l walltime=01:30:00
 #PBS -A VERF-DEV
 
 module load prod_envir/2.0.6
