@@ -4,7 +4,6 @@
 #
 # Contributors: Alicia.Bentley@noaa.gov
 # NOAA/NWS/NCEP/Environmental Modeling Center
-# Verification and Products Branch (VPB)
 ###################################################
 module reset
 module load prod_envir/2.0.6
@@ -65,19 +64,19 @@ export PLOT_GFS_FCSTS=YES
 export DOMAIN_ARRAY='conus'
 
 # Specify the forecast hours (HHH format) to plot (typically every 6 hours from F000 to F240
-for fhr in 078
-do
+#for fhr in 078
+#do
 
 #===============================================================================================================        
 #===============================================  END CHANGES  =================================================
 #===============================================================================================================
 
 if [ $PLOT_GFS_FCSTS = YES ]; then
-        echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate} ${cyc} f${fhr} for ${DOMAIN_ARRAY})"
-        ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $fhr
+        echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate} ${cyc} for ${DOMAIN_ARRAY})"
+        ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $DOMAIN_ARRAY
         sleep 3
 fi
 
-done
+#done
 
 exit

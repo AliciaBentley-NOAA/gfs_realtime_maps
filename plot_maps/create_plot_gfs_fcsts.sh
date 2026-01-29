@@ -8,8 +8,8 @@ echo output path: ${OUTPUT_PATH}
 
 INITDATE=$1
 CYC=$2
-FHR=$3
-echo ${INITDATE} ${CYC} ${FHR}
+DOMAIN=$3
+echo ${INITDATE} ${CYC} ${DOMAIN}
 
 mkdir -p ${OUTPUT_PATH}
 mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/scripts
@@ -49,7 +49,7 @@ cp ${SCRIPTS_PATH}/plot_gfs_mslp_3panel.py .
 
 	#export FHHH=${FHR}
 
-	python plot_gfs_mslp_3panel.py ${INITDATE} ${CYC}
+	python plot_gfs_mslp_3panel.py ${INITDATE} ${CYC} ${DOMAIN}
         sleep 3
 
 mv image_*.png ${MAP_PATH}/gfs/${INITDAT}${CYC}/mslp/.

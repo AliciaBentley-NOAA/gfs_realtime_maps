@@ -22,17 +22,13 @@ import cartopy.io.shapereader as shpreader
 pdy = str(sys.argv[1])             #20251120
 cyc = str(sys.argv[2])		   #12 
 #fhr = str(sys.argv[3])             #24 
-grid = str(sys.argv[4])            #conus
-fcst_file = str(sys.argv[5])        #[path to GFS forecast file]
-case = str(sys.argv[6])            #realtime
+grid = str(sys.argv[3])            #conus
 show_colorbar="yes"
 
 print("pdy:", pdy)
 print("cyc:", cyc)
 #print("fhr:", fhr)
 print("grid:", grid)
-print("fcst_file:", fcst_file)
-print("case:", case)
 
 init_str = str(pdy)
 init_hour = int(cyc)
@@ -44,8 +40,8 @@ init_dt = datetime.strptime(init_str, "%Y%m%d").replace(hour=init_hour)
 img_counter=0
 print("img_counter:", img_counter)
 
-#for fhr in range(0, 385, 6):
-for fhr in range(0, 13, 6):
+for fhr in range(0, 385, 6):
+#for fhr in range(0, 13, 6):
     # Use f-string to format with leading zeros (e.g., 000, 006)
     fhr_str = f"{fhr:03d}"
     fcst_hour= int(fhr)
