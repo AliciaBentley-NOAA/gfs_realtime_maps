@@ -19,7 +19,7 @@ import pyproj
 import cartopy
 import cartopy.io.shapereader as shpreader
 
-#####################################################
+######################################################
 
 pdy = str(sys.argv[1])             #20251120
 cyc = str(sys.argv[2])		   #12 
@@ -39,14 +39,14 @@ init_hour = int(cyc)
 # strptime converts the string to a datetime object
 init_dt = datetime.strptime(init_str, "%Y%m%d").replace(hour=init_hour)
 
-####################################################
+#####################################################
 
-img_counter=0
+img_counter=13
 print("img_counter:", img_counter)
 
-####################################################
+#####################################################
 
-for fhr in range(0, 193, 6):
+for fhr in range(78, 193, 6):
 #for fhr in range(0, 385, 6):
     # Use f-string to format with leading zeros (e.g., 000, 006)
     fhr_str = f"{fhr:03d}"
@@ -66,28 +66,28 @@ for fhr in range(0, 193, 6):
     with grib2io.open(filename_gfsv16) as f_v16:
 
         # Select the specific messages we want
-        hgt500_msg_v16 = f_v16.select(shortName='HGT', level='500 mb')[0]
+        mslp_msg_v16 = f_v16.select(shortName='PRMSL', level='mean sea level')[0]
 
         # Extract values
-        hgt500_data_v16 = hgt500_msg_v16.data / 10.0  # Convert m to dam
+        mslp_data_v16 = mslp_msg_v16.data / 100.0  # Convert Pa to hPa/mb
 
     # Open GFSv17 GRIB2 file and extract parameters
     filename_gfsv17 = f"/lfs/h2/emc/gfstemp/emc.global/comroot/retrov17_01_realtime/gfs.{pdy}/{cyc}/products/atmos/grib2/0p25/gfs.t{cyc}z.pres_a.0p25.f{fhr_str}.grib2"
     with grib2io.open(filename_gfsv17) as f_v17:
 
         # Select the specific messages we want
-        hgt500_msg_v17 = f_v17.select(shortName='HGT', level='500 mb')[0]
+        mslp_msg_v17 = f_v17.select(shortName='PRMSL', level='mean sea level')[0]
 
         # Extract values
-        hgt500_data_v17 = hgt500_msg_v17.data / 10.0  # Convert m to dam
+        mslp_data_v17 = mslp_msg_v17.data / 100.0  # Convert Pa to hPa/mb
 
         # Calculate the difference (e.g., Panel 1 minus Panel 2)
-        diff_data = hgt500_data_v17 - hgt500_data_v16
+        diff_data = mslp_data_v17 - mslp_data_v16
 
         # Extract data and coordinates
-        lats, lons = hgt500_msg_v17.latlons()
+        lats, lons = mslp_msg_v17.latlons()
 
-#########################################################
+##########################################################
 
     # Create the 3-Panel Plot
     fig = plt.figure(figsize=(16, 12))
@@ -96,8 +96,8 @@ for fhr in range(0, 193, 6):
     gs = gridspec.GridSpec(2, 2, figure=fig)
 
     # Define the specific normalization (Panels 1 & 2)
-    hgt500_norm = mcolors.Normalize(vmin=474, vmax=600)
-    hgt500_levels = np.arange(474, 606, 6)
+    mslp_norm = mcolors.Normalize(vmin=968, vmax=1052)
+    mslp_levels = np.arange(968, 1056, 4)
 
     # New normalization for the difference plot so that near 0 is white
     diff_norm = mcolors.TwoSlopeNorm(vcenter=0, vmin=-40, vmax=40)
@@ -118,9 +118,9 @@ for fhr in range(0, 193, 6):
 
     # Update configs with specific 'norm' and 'levels'
     plot_configs = [
-        {'data': hgt500_data_v16, 'cmap': 'gist_rainbow_r', 'norm': hgt500_norm, 'levels': hgt500_levels, 'title': 'GFSv16 500Z (dam)'},
-        {'data': hgt500_data_v17, 'cmap': 'gist_rainbow_r', 'norm': hgt500_norm, 'levels': hgt500_levels, 'title': 'GFSv17 500Z (dam)'},
-        {'data': diff_data,       'cmap': 'seismic',      'norm': diff_norm, 'levels': diff_levels, 'title': 'GFSv17 minus GFSv16 500Z (dam)'}
+        {'data': mslp_data_v16, 'cmap': 'gist_rainbow',      'norm': mslp_norm, 'levels': mslp_levels, 'title': 'GFSv16 MSLP (hPa)'},
+        {'data': mslp_data_v17, 'cmap': 'gist_rainbow',      'norm': mslp_norm, 'levels': mslp_levels, 'title': 'GFSv17 MSLP (hPa)'},
+        {'data': diff_data,     'cmap': 'seismic', 'norm': diff_norm, 'levels': diff_levels, 'title': 'GFSv17 minus GFSv16 MSLP (hPa)'}
     ]
 
     # Define the grid locations: [row, col] or [row, span]
@@ -165,17 +165,16 @@ for fhr in range(0, 193, 6):
                               transform=ccrs.PlateCarree())
            
         # Add labels to the lines (e.g., '1012')
-        # Reduce padding (default is 4) to allow more labels to fit in tight spaces
-        ax.clabel(contours, inline=True, fontsize=8, fmt='%i', inline_spacing=1)
+        ax.clabel(contours, inline=True, fontsize=8, fmt='%i')
 
         # Colorbar and Titles
         plt.colorbar(im, ax=ax, orientation='horizontal', pad=0.06, fraction=0.055)
         ax.set_title(config['title'], fontweight='bold', fontsize=14)
 
-#################################################
+##########################################################
 
     # Add a title and adjust layout to prevent overlapping
-    plt.suptitle(f"500-hPa Geopotential Height (500Z) | Initialized: {init_dt.strftime('%Y-%m-%d %HZ')} (Fhr: {fhr}) | Valid: {valid_dt.strftime('%Y-%m-%d %HZ')}", fontsize=20)
+    plt.suptitle(f"Mean Sea Level Pressure (MSLP) | Initialized: {init_dt.strftime('%Y-%m-%d %HZ')} (Fhr: {fhr}) | Valid: {valid_dt.strftime('%Y-%m-%d %HZ')}", fontsize=20)
     plt.tight_layout()
     plt.savefig(f"image_{img_counter}.png")
 

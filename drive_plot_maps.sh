@@ -11,7 +11,6 @@ module load intel/19.1.3.304
 module load python/3.8.6
 module use /lfs/h1/mdl/nbm/save/apps/modulefiles
 module load python-modules/3.8.6
-#export PYTHONPATH="${PYTHONPATH}:/lfs/h2/emc/lam/noscrub/Benjamin.Blake/python"
 export PYTHONPATH="${PYTHONPATH}:/lfs/h2/emc/vpppg/noscrub/Alicia.Bentley/python"
 module load proj/7.1.0
 module load geos/3.8.1

@@ -19,6 +19,8 @@ import pyproj
 import cartopy
 import cartopy.io.shapereader as shpreader
 
+######################################################
+
 pdy = str(sys.argv[1])             #20251120
 cyc = str(sys.argv[2])		   #12 
 #fhr = str(sys.argv[3])             #24 
@@ -37,10 +39,14 @@ init_hour = int(cyc)
 # strptime converts the string to a datetime object
 init_dt = datetime.strptime(init_str, "%Y%m%d").replace(hour=init_hour)
 
+#####################################################
+
 img_counter=0
 print("img_counter:", img_counter)
 
-for fhr in range(0, 193, 6):
+#####################################################
+
+for fhr in range(0, 73, 6):
 #for fhr in range(0, 385, 6):
     # Use f-string to format with leading zeros (e.g., 000, 006)
     fhr_str = f"{fhr:03d}"
@@ -81,17 +87,19 @@ for fhr in range(0, 193, 6):
         # Extract data and coordinates
         lats, lons = mslp_msg_v17.latlons()
 
+##########################################################
+
     # Create the 3-Panel Plot
     fig = plt.figure(figsize=(16, 12))
 
     # Define a 2x2 grid
     gs = gridspec.GridSpec(2, 2, figure=fig)
 
-    # Define the specific normalization for MSLP (Panels 1 & 2)
+    # Define the specific normalization (Panels 1 & 2)
     mslp_norm = mcolors.Normalize(vmin=968, vmax=1052)
     mslp_levels = np.arange(968, 1056, 4)
 
-    # New normalization for the difference plot to ensure 0 is white
+    # New normalization for the difference plot so that near 0 is white
     diff_norm = mcolors.TwoSlopeNorm(vcenter=0, vmin=-40, vmax=40)
     diff_levels = np.arange(-40, 41, 2)
 
@@ -162,6 +170,8 @@ for fhr in range(0, 193, 6):
         # Colorbar and Titles
         plt.colorbar(im, ax=ax, orientation='horizontal', pad=0.06, fraction=0.055)
         ax.set_title(config['title'], fontweight='bold', fontsize=14)
+
+##########################################################
 
     # Add a title and adjust layout to prevent overlapping
     plt.suptitle(f"Mean Sea Level Pressure (MSLP) | Initialized: {init_dt.strftime('%Y-%m-%d %HZ')} (Fhr: {fhr}) | Valid: {valid_dt.strftime('%Y-%m-%d %HZ')}", fontsize=20)
