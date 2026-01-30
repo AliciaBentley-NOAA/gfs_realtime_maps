@@ -6,6 +6,20 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <script type="text/javascript" src="functions.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GECP61QES"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GECP61QES');
+</script>
+
+        <!--DAP script -->
+        <script src="//dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NOAA" id="_fed_an_ua_tag"></script>
+
 </head>
 
 <body>
