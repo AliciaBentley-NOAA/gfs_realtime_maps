@@ -12,9 +12,58 @@ DOMAIN=$3
 echo ${INITDATE} ${CYC} ${DOMAIN}
 
 mkdir -p ${OUTPUT_PATH}
-#mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/scripts
+mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/850T
 mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp
 mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/500Z
+
+#################################################################################################
+#-----------------------------------------------------------------------------------------
+# Creating a job to plot 850T GFS forecasts for a particular init. date and cycle
+#-----------------------------------------------------------------------------------------
+
+cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/850T/kickoff_plot_gfs_850T_3panel.py <<EOF
+#!/bin/bash
+#PBS -N gfs_850T_plot
+#PBS -o ${OUTPUT_PATH}/out_plot_gfs_850T_${INITDATE}${CYC}.out
+#PBS -e ${OUTPUT_PATH}/out_plot_gfs_850T_${INITDATE}${CYC}.err
+#PBS -l select=1:ncpus=1:mem=100GB
+#PBS -q dev
+#PBS -l walltime=00:40:00
+#PBS -A VERF-DEV
+
+module load prod_envir/2.0.6
+module load intel/19.1.3.304
+module load python/3.8.6
+module use /lfs/h1/mdl/nbm/save/apps/modulefiles
+module load python-modules/3.8.6
+export PYTHONPATH="${PYTHONPATH}:/lfs/h2/emc/vpppg/noscrub/Alicia.Bentley/python"
+module load proj/7.1.0
+module load geos/3.8.1
+module load libjpeg-turbo/2.1.0
+module load imagemagick/7.0.8-7
+module load wgrib2/2.0.8_wmo
+module load libjpeg/9c
+module load grib_util/1.2.4
+
+cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/850T
+cp ${SCRIPTS_PATH}/plot_gfs_850T_3panel.py .
+
+        #export FHHH=${FHR}
+
+        python plot_gfs_850T_3panel.py ${INITDATE} ${CYC} ${DOMAIN}
+        sleep 3
+
+exit
+
+EOF
+
+#----------------------------------------------------------------------------------------
+
+qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/850T/kickoff_plot_gfs_850T_3panel.py
+sleep 3
+echo Submitted 850T plots job! 
+
+#----------------------------------------------------------------------------------------
 
 #################################################################################################
 #-----------------------------------------------------------------------------------------
@@ -23,7 +72,7 @@ mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/500Z
 
 cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp/kickoff_plot_gfs_mslp_3panel_part1.py <<EOF
 #!/bin/bash
-#PBS -N gfs_mslp_plot
+#PBS -N gfs_mslp1_plot
 #PBS -o ${OUTPUT_PATH}/out_plot_gfs_mslp_part1_${INITDATE}${CYC}.out
 #PBS -e ${OUTPUT_PATH}/out_plot_gfs_mslp_part1_${INITDATE}${CYC}.err
 #PBS -l select=1:ncpus=1:mem=100GB
@@ -72,7 +121,7 @@ echo Submitted mslp plots part1 job!
 
 cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp/kickoff_plot_gfs_mslp_3panel_part2.py <<EOF
 #!/bin/bash
-#PBS -N gfs_mslp_plot
+#PBS -N gfs_mslp2_plot
 #PBS -o ${OUTPUT_PATH}/out_plot_gfs_mslp_part2_${INITDATE}${CYC}.out
 #PBS -e ${OUTPUT_PATH}/out_plot_gfs_mslp_part2_${INITDATE}${CYC}.err
 #PBS -l select=1:ncpus=1:mem=100GB
