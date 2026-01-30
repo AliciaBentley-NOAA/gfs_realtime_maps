@@ -41,12 +41,12 @@ init_dt = datetime.strptime(init_str, "%Y%m%d").replace(hour=init_hour)
 
 #####################################################
 
-img_counter=13
+img_counter=12
 print("img_counter:", img_counter)
 
 #####################################################
 
-for fhr in range(78, 193, 6):
+for fhr in range(72, 193, 6):
 #for fhr in range(0, 385, 6):
     # Use f-string to format with leading zeros (e.g., 000, 006)
     fhr_str = f"{fhr:03d}"
@@ -174,7 +174,7 @@ for fhr in range(78, 193, 6):
 ##########################################################
 
     # Add a title and adjust layout to prevent overlapping
-    plt.suptitle(f"Mean Sea Level Pressure (MSLP) | Initialized: {init_dt.strftime('%Y-%m-%d %HZ')} (Fhr: {fhr}) | Valid: {valid_dt.strftime('%Y-%m-%d %HZ')}", fontsize=20)
+    plt.suptitle(f"Mean Sea Level Pressure (MSLP) | Initialized: {init_dt.strftime('%Y-%m-%d %HZ')} (Fhr: {fhr_str}) | Valid: {valid_dt.strftime('%Y-%m-%d %HZ')}", fontsize=20)
     plt.tight_layout()
     plt.savefig(f"image_{img_counter}.png")
 

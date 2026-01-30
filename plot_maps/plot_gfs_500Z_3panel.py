@@ -163,10 +163,9 @@ for fhr in range(0, 193, 6):
                               colors='black', 
                               linewidths=0.5, 
                               transform=ccrs.PlateCarree())
-           
-        # Add labels to the lines (e.g., '1012')
-        # Reduce padding (default is 4) to allow more labels to fit in tight spaces
-        ax.clabel(contours, inline=True, fontsize=8, fmt='%i', inline_spacing=1)
+            # Add labels to the lines (e.g., '1012')
+            # Reduce padding (default is 4) to allow more labels to fit in tight spaces
+            ax.clabel(contours, inline=True, fontsize=8, fmt='%i', inline_spacing=1)
 
         # Colorbar and Titles
         plt.colorbar(im, ax=ax, orientation='horizontal', pad=0.06, fraction=0.055)
@@ -175,7 +174,7 @@ for fhr in range(0, 193, 6):
 #################################################
 
     # Add a title and adjust layout to prevent overlapping
-    plt.suptitle(f"500-hPa Geopotential Height (500Z) | Initialized: {init_dt.strftime('%Y-%m-%d %HZ')} (Fhr: {fhr}) | Valid: {valid_dt.strftime('%Y-%m-%d %HZ')}", fontsize=20)
+    plt.suptitle(f"500-hPa Geopotential Height (500Z) | Initialized: {init_dt.strftime('%Y-%m-%d %HZ')} (Fhr: {fhr_str}) | Valid: {valid_dt.strftime('%Y-%m-%d %HZ')}", fontsize=20)
     plt.tight_layout()
     plt.savefig(f"image_{img_counter}.png")
 

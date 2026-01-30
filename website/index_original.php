@@ -107,6 +107,9 @@ variables.push({
         name: "500Z",
 });
 
+
+
+
 domains.push({
 	displayName: "CONUS",
 	name: "conus",
@@ -175,7 +178,7 @@ function initialize(){
 	
 	//Set image object based on default variables
 	imageObj = {
-		variable: "mslp",
+		variable: "500Z",
 		domain: "conus",
 		maptype: "index",
 		run: startRun,
