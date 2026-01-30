@@ -52,7 +52,7 @@ cp ${SCRIPTS_PATH}/plot_gfs_mslp_3panel.py .
 	python plot_gfs_mslp_3panel.py ${INITDATE} ${CYC} ${DOMAIN}
         sleep 3
 
-mv image_*.png ${MAP_PATH}/gfs/${INITDAT}${CYC}/mslp/.
+mv image_*.png ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp/.
 
 exit
 
