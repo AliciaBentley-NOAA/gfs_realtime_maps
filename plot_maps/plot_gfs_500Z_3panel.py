@@ -87,6 +87,33 @@ for fhr in range(0, 193, 6):
         # Extract data and coordinates
         lats, lons = hgt500_msg_v17.latlons()
 
+    # Shift longitudes from [0, 360] to [-180, 180]
+    lons = np.where(lons > 180, lons - 360, lons)
+
+    # If lons is a 2D meshgrid, we only want the 1D vector to get sort indices
+    # We'll take the first row of lons to determine the sorting order
+    if lons.ndim == 2:
+        lons_1d = lons[0, :]
+    else:
+        lons_1d = lons
+
+    # Get the sorting indices
+    i_sort = np.argsort(lons_1d)
+
+    # Apply sorting to the 2D arrays across the longitude axis (axis=1)
+    if lons.ndim == 2:
+        lons = lons[:, i_sort]
+        lats = lats[:, i_sort] # Sort lats too if it's a meshgrid
+    else:
+        lons = lons[i_sort]
+
+    hgt500_data_v16 = hgt500_data_v16[:, i_sort]
+    hgt500_data_v17 = hgt500_data_v17[:, i_sort]
+    diff_data       = diff_data[:, i_sort]
+
+#########################################################
+
+
 #########################################################
 
     # Create the 3-Panel Plot
