@@ -97,8 +97,8 @@ for fhr in range(0, 193, 6):
     gs = gridspec.GridSpec(2, 2, figure=fig)
 
     # Define the specific normalization (Panels 1 & 2)
-    t850_norm = mcolors.Normalize(vmin=-35, vmax=35)
-    t850_levels = np.arange(-35, 40, 5)
+    t850_norm = mcolors.Normalize(vmin=-44, vmax=36)
+    t850_levels = np.arange(-44, 40, 4)
 
     # New normalization for the difference plot so that near 0 is white
     diff_norm = mcolors.TwoSlopeNorm(vcenter=0, vmin=-40, vmax=40)
@@ -119,9 +119,9 @@ for fhr in range(0, 193, 6):
 
     # Update configs with specific 'norm' and 'levels'
     plot_configs = [
-        {'data': t850_data_v16, 'cmap': 'gist_rainbow_r', 'norm': t850_norm, 'levels': t850_levels, 'title': 'GFSv16 850T (Celcius)'},
-        {'data': t850_data_v17, 'cmap': 'gist_rainbow_r', 'norm': t850_norm, 'levels': t850_levels, 'title': 'GFSv17 850T (Celcius)'},
-        {'data': diff_data,       'cmap': 'seismic',      'norm': diff_norm, 'levels': diff_levels, 'title': 'GFSv17 minus GFSv16 850T (Celcius)'}
+        {'data': t850_data_v16, 'cmap': 'nipy_spectral', 'norm': t850_norm, 'levels': t850_levels, 'title': 'GFSv16 850T (Celcius)'},
+        {'data': t850_data_v17, 'cmap': 'nipy_spectral', 'norm': t850_norm, 'levels': t850_levels, 'title': 'GFSv17 850T (Celcius)'},
+        {'data': diff_data,     'cmap': 'seismic',      'norm': diff_norm, 'levels': diff_levels, 'title': 'GFSv17 minus GFSv16 850T (Celcius)'}
     ]
 
     # Define the grid locations: [row, col] or [row, span]
@@ -139,7 +139,7 @@ for fhr in range(0, 193, 6):
         # Apply the filter
         # sigma=1.0 is a good starting point for 0.25-degree GFS.
         # A higher sigma means MORE smoothing. 2.0 may be too much.
-        smoothed_data = gaussian_filter(raw_data, sigma=1.5)
+        smoothed_data = gaussian_filter(raw_data, sigma=0.5)
  
         # Add subplot with projection
         ax = fig.add_subplot(loc, projection=ccrs.PlateCarree())

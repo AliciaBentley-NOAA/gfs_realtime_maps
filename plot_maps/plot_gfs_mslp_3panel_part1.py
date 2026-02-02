@@ -46,7 +46,7 @@ print("img_counter:", img_counter)
 
 #####################################################
 
-for fhr in range(0, 67, 6):
+for fhr in range(0, 49, 6):
 #for fhr in range(0, 385, 6):
     # Use f-string to format with leading zeros (e.g., 000, 006)
     fhr_str = f"{fhr:03d}"

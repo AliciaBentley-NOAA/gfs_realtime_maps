@@ -120,7 +120,10 @@ variables.push({
         displayName: "500-hPa Geopotential Height",
         name: "500Z",
 });
-
+variables.push({
+        displayName: "850-hPa Temperature",
+        name: "850T",
+});
 
 
 
