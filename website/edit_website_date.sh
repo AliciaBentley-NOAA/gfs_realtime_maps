@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /lfs/h2/emc/vpppg/save/alicia.bentley/gfs_realtime_maps/website
+
 # 1. Copy the file to create a fresh version for updating
 # This ensures website_original.php remains untouched
 'cp' index_original.php index.php
