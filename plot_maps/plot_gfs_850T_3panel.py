@@ -73,6 +73,8 @@ for fhr in range(0, 193, 6):
         t850_data_v16 = t850_msg_v16.data - 273.15  # Convert K to C
 
     # Open GFSv17 GRIB2 file and extract parameters
+    #filename_gfsv17 = f"/lfs/h2/emc/vpppg/noscrub/alicia.bentley/GFSv17archive/data/gfs.{pdy}/{cyc}/products/atmos/grib2/0p25/gfs.t{cyc}z.pres_a.0p25.f{fhr_str}.grib2"
+    #filename_gfsv17 = f"/lfs/h2/emc/gfstemp/emc.global/EVS_archive/retrov17_01/gfs.{pdy}/{cyc}/products/atmos/grib2/0p25/gfs.t{cyc}z.pres_a.0p25.f{fhr_str}.grib2"
     filename_gfsv17 = f"/lfs/h2/emc/gfstemp/emc.global/comroot/retrov17_01_realtime/gfs.{pdy}/{cyc}/products/atmos/grib2/0p25/gfs.t{cyc}z.pres_a.0p25.f{fhr_str}.grib2"
     with grib2io.open(filename_gfsv17) as f_v17:
 

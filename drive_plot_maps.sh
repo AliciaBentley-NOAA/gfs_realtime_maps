@@ -22,8 +22,8 @@ module load grib_util/1.2.4
 
 cyc=$1
 
-/bin/date +%Y%m%d > holddate.txt
-sleep 1
+#/bin/date +%Y%m%d > holddate.txt
+#sleep 1
 year=`cut -c 1-4 holddate.txt`
 month=`cut -c 5-6 holddate.txt`
 day=`cut -c 7-8 holddate.txt`
@@ -44,10 +44,10 @@ export CASE='realtime'
 export SCRIPTS_PATH='/lfs/h2/emc/vpppg/save/'${USER}'/gfs_realtime_maps/plot_maps'
 
 # Location of downloaded forecast/analysis files
-export DATA_PATH='/lfs/h2/emc/gfstemp/emc.global/comroot/retrov17_01_realtime/'
+#export DATA_PATH='/lfs/h2/emc/gfstemp/emc.global/comroot/retrov17_01_realtime/'
 
 # Location to plot maps
-export MAP_PATH='/lfs/h2/emc/ptmp/'${USER}'/gfs_realtime_maps/maps'
+export MAP_PATH='/lfs/h2/emc/vpppg/noscrub/'${USER}'/gfs_realtime_maps/maps'
 
 # Location to write output from submitted plot_maps jobs
 export OUTPUT_PATH=${MAP_PATH}'/output'

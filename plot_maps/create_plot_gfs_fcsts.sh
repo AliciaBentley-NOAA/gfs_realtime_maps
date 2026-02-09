@@ -12,16 +12,16 @@ DOMAIN=$3
 echo ${INITDATE} ${CYC} ${DOMAIN}
 
 mkdir -p ${OUTPUT_PATH}
-mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/850T
-mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp
-mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/500Z
+mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/850T
+mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/mslp
+mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/500Z
 
 #################################################################################################
 #-----------------------------------------------------------------------------------------
 # Creating a job to plot 850T GFS forecasts for a particular init. date and cycle
 #-----------------------------------------------------------------------------------------
 
-cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/850T/kickoff_plot_gfs_850T_3panel.py <<EOF
+cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/850T/kickoff_plot_gfs_850T_3panel.py <<EOF
 #!/bin/bash
 #PBS -N gfs_850T_plot
 #PBS -o ${OUTPUT_PATH}/out_plot_gfs_850T_${INITDATE}${CYC}.out
@@ -45,7 +45,7 @@ module load wgrib2/2.0.8_wmo
 module load libjpeg/9c
 module load grib_util/1.2.4
 
-cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/850T
+cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/850T
 cp ${SCRIPTS_PATH}/plot_gfs_850T_3panel.py .
 
         #export FHHH=${FHR}
@@ -59,7 +59,7 @@ EOF
 
 #----------------------------------------------------------------------------------------
 
-qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/850T/kickoff_plot_gfs_850T_3panel.py
+qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/850T/kickoff_plot_gfs_850T_3panel.py
 sleep 3
 echo Submitted 850T plots job! 
 
@@ -70,7 +70,7 @@ echo Submitted 850T plots job!
 # Creating a job to plot MSLP (part 1) GFS forecasts for a particular init. date and cycle
 #-----------------------------------------------------------------------------------------
 
-cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp/kickoff_plot_gfs_mslp_3panel_part1.py <<EOF
+cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/mslp/kickoff_plot_gfs_mslp_3panel_part1.py <<EOF
 #!/bin/bash
 #PBS -N gfs_mslp1_plot
 #PBS -o ${OUTPUT_PATH}/out_plot_gfs_mslp_part1_${INITDATE}${CYC}.out
@@ -94,7 +94,7 @@ module load wgrib2/2.0.8_wmo
 module load libjpeg/9c
 module load grib_util/1.2.4
 
-cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp
+cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/mslp
 cp ${SCRIPTS_PATH}/plot_gfs_mslp_3panel_part1.py .
 
 	#export FHHH=${FHR}
@@ -108,7 +108,7 @@ EOF
 
 #----------------------------------------------------------------------------------------
 
-qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp/kickoff_plot_gfs_mslp_3panel_part1.py
+qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/mslp/kickoff_plot_gfs_mslp_3panel_part1.py
 sleep 3
 echo Submitted mslp plots part1 job! 
 
@@ -119,7 +119,7 @@ echo Submitted mslp plots part1 job!
 # Creating a job to plot MSLP (part 2) GFS forecasts for a particular init. date and cycle
 #-----------------------------------------------------------------------------------------
 
-cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp/kickoff_plot_gfs_mslp_3panel_part2.py <<EOF
+cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/mslp/kickoff_plot_gfs_mslp_3panel_part2.py <<EOF
 #!/bin/bash
 #PBS -N gfs_mslp2_plot
 #PBS -o ${OUTPUT_PATH}/out_plot_gfs_mslp_part2_${INITDATE}${CYC}.out
@@ -143,7 +143,7 @@ module load wgrib2/2.0.8_wmo
 module load libjpeg/9c
 module load grib_util/1.2.4
 
-cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp
+cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/mslp
 cp ${SCRIPTS_PATH}/plot_gfs_mslp_3panel_part2.py .
 
         #export FHHH=${FHR}
@@ -157,7 +157,7 @@ EOF
 
 #----------------------------------------------------------------------------------------
 
-qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/mslp/kickoff_plot_gfs_mslp_3panel_part2.py
+qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/mslp/kickoff_plot_gfs_mslp_3panel_part2.py
 sleep 3
 echo Submitted mslp plots part2 job! 
 
@@ -168,7 +168,7 @@ echo Submitted mslp plots part2 job!
 # Creating a job to plot 500Z GFS forecasts for a particular init. date and cycle
 #-----------------------------------------------------------------------------------------
 
-cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/500Z/kickoff_plot_gfs_500Z_3panel.py <<EOF
+cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/500Z/kickoff_plot_gfs_500Z_3panel.py <<EOF
 #!/bin/bash
 #PBS -N gfs_500Z_plot
 #PBS -o ${OUTPUT_PATH}/out_plot_gfs_500Z_${INITDATE}${CYC}.out
@@ -192,7 +192,7 @@ module load wgrib2/2.0.8_wmo
 module load libjpeg/9c
 module load grib_util/1.2.4
 
-cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/500Z
+cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/500Z
 cp ${SCRIPTS_PATH}/plot_gfs_500Z_3panel.py .
 
         #export FHHH=${FHR}
@@ -200,15 +200,13 @@ cp ${SCRIPTS_PATH}/plot_gfs_500Z_3panel.py .
         python plot_gfs_500Z_3panel.py ${INITDATE} ${CYC} ${DOMAIN}
         sleep 3
 
-#mv image_*.png ${MAP_PATH}/gfs/${INITDATE}${CYC}/500Z/.
-
 exit
 
 EOF
 
 #----------------------------------------------------------------------------------------
 
-qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/500Z/kickoff_plot_gfs_500Z_3panel.py
+qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/500Z/kickoff_plot_gfs_500Z_3panel.py
 sleep 3
 echo Submitted 500Z plots job!
 
