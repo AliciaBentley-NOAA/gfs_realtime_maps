@@ -28,7 +28,7 @@ cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/850T/kickoff_plot_gfs_850T_3pa
 #PBS -e ${OUTPUT_PATH}/out_plot_gfs_850T_${INITDATE}${CYC}.err
 #PBS -l select=1:ncpus=1:mem=100GB
 #PBS -q dev
-#PBS -l walltime=00:40:00
+#PBS -l walltime=00:50:00
 #PBS -A VERF-DEV
 
 module load prod_envir/2.0.6
@@ -175,7 +175,7 @@ cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/500Z/kickoff_plot_gfs_500Z_3pa
 #PBS -e ${OUTPUT_PATH}/out_plot_gfs_500Z_${INITDATE}${CYC}.err
 #PBS -l select=1:ncpus=1:mem=200GB
 #PBS -q dev
-#PBS -l walltime=00:40:00
+#PBS -l walltime=00:30:00
 #PBS -A VERF-DEV
 
 module load prod_envir/2.0.6

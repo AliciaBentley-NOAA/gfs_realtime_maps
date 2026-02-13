@@ -24,7 +24,7 @@ else
     fi
 fi
 
-start_date="20260209"
+start_date="20260213"
 start_hh="06"
 
 echo "Most recent run: ${start_date}${start_hh}"
