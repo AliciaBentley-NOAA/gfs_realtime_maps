@@ -1,37 +1,16 @@
 #!/bin/bash
 
-# 1. Determine current UTC hour
-current_hour=$(date -u +%H)
-current_date=$(date -u +%Y%m%d)
+# 1. Determine start_date
+start_date=$1
 
-# 2. Logic to determine start_hh and start_date
-if [ "$current_hour" -ge 5 ] && [ "$current_hour" -lt 11 ]; then
-    start_hh="00"
-    start_date=$(date -u -d "today" +%Y%m%d)
-elif [ "$current_hour" -ge 11 ] && [ "$current_hour" -lt 17 ]; then
-    start_hh="06"
-    start_date=$(date -u -d "today" +%Y%m%d)
-elif [ "$current_hour" -ge 17 ] && [ "$current_hour" -lt 23 ]; then
-    start_hh="12"
-    start_date=$(date -u -d "today" +%Y%m%d)
-else
-    # Covers 23Z, 00Z, 01Z, 02Z, 03Z, 04Z
-    start_hh="18"
-    if [ "$current_hour" -lt 5 ]; then
-        start_date=$(date -u -d "yesterday" +%Y%m%d)
-    else
-        start_date=$(date -u -d "today" +%Y%m%d)
-    fi
-fi
-
-start_date="20260213"
-start_hh="06"
+# 2. Logic start_hour
+start_hh=$2
 
 echo "Most recent run: ${start_date}${start_hh}"
 
 # 3. Define and Echo Plot Types
 #plot_types=("mslp" "500Z" "850T")
-plot_type=$1
+plot_type=$3
 echo "------------------------------------------------"
 #echo "Copying Plot Types: ${plot_types[@]}"
 echo "Copying Plot Types: ${plot_type}"

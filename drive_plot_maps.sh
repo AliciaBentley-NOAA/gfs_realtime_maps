@@ -21,14 +21,22 @@ module load libjpeg/9c
 module load grib_util/1.2.4
 
 cyc=$1
+echo "cyc: ${cyc}"
 
-#/bin/date +%Y%m%d > holddate.txt
-#sleep 1
+#Logic to determine holddate.txt based $cyc (00, 06, 12, 18)
+if [ "$cyc" -ge 18 ]; then
+    /bin/date --date="yesterday" +%Y%m%d > holddate.txt
+else
+    /bin/date +%Y%m%d > holddate.txt
+fi
+
+sleep 1
 year=`cut -c 1-4 holddate.txt`
 month=`cut -c 5-6 holddate.txt`
 day=`cut -c 7-8 holddate.txt`
 export longdate=${year}${month}${day}
-#echo $longdate $cyc
+echo $longdate$cyc
+
 
 #===============================================================================================================
 #==============================================  BEGIN CHANGES  ================================================
@@ -71,9 +79,9 @@ export DOMAIN_ARRAY='conus'
 #===============================================================================================================
 
 if [ $PLOT_GFS_FCSTS = YES ]; then
-        echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate} ${cyc} for ${DOMAIN_ARRAY})"
+        echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate}${cyc} for ${DOMAIN_ARRAY})"
         ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $DOMAIN_ARRAY
-        sleep 3
+        sleep 2
 fi
 
 #done

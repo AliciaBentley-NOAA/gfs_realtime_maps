@@ -20,19 +20,32 @@ module load wgrib2/2.0.8_wmo
 module load libjpeg/9c
 module load grib_util/1.2.4
 
-export SCRIPTS_PATH='/lfs/h2/emc/vpppg/save/'${USER}'/gfs_realtime_maps/website'
+cyc=$1
+echo "cyc: ${cyc}"
 
-# Specify the plot types that will be copied from WCOSS2 to emcrzdm (e.g., 500Z, mslp, 850T)
-for plot_type in 500Z mslp 850T; do
+#Logic to determine holddate.txt based $cyc (00, 06, 12, 18)
+if [ "$cyc" -ge 18 ]; then
+    yyyymmdd=$(/bin/date --date="yesterday" +%Y%m%d)
+else
+    yyyymmdd=$(/bin/date +%Y%m%d)
+fi
+
+sleep 1
+echo $yyyymmdd$cyc
+
+export SCRIPTS_PATH='/lfs/h2/emc/vpppg/save/'${USER}'/gfs_realtime_maps/website'
 
 #===============================================================================================================
 #==============================================  BEGIN CHANGES  ================================================
 #===============================================================================================================
 
-    echo "Kicking off script to copy ${plot_type} images from WCOSS2 to emcrzdm"
+# Specify the plot types that will be copied from WCOSS2 to emcrzdm (e.g., 500Z, mslp, 850T)
+for plot_type in 500Z mslp 850T; do
+
+    echo "Kicking off script to copy ${plot_type} images from WCOSS2 to emcrzdm for $yyyymmdd$cyc"
     
     # Adding '&' at the end sends this to the background
-    ${SCRIPTS_PATH}/copy_images_to_emcrzdm.sh ${plot_type} > /lfs/h2/emc/ptmp/alicia.bentley/cron.out/copy_${plot_type}_to_emcrzdm.out 2>&1 &
+    ${SCRIPTS_PATH}/copy_images_to_emcrzdm.sh ${yyyymmdd} ${cyc} ${plot_type} > /lfs/h2/emc/ptmp/alicia.bentley/cron.out/copy_${plot_type}_to_emcrzdm.out 2>&1 &
     
     # Optional: Keep a tiny sleep if the server dislikes 3 instant hits
     sleep 1
