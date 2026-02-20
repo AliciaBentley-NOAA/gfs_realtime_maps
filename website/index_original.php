@@ -68,6 +68,12 @@ Up/Down arrow keys = Change initialization time | Left/Right arrow keys = Change
 <!-- /Middle menu -->
 </div>
 
+<!-- Banner -->
+<div class="page-middle" id="page-middle" style="color: black; background-color: #82b3ff; font-size: 0.9em;">
+<b><u>Disclaimer</u>:</b> The content provided on this page supports model development. These are not official NWS products and should not to be relied upon for operational purposes.<br>This web site is not subject to 24/7 support, and thus may be unavailable during system outages.
+</div>
+<!-- /Banner -->
+
 <div id="loading"><img style="width:100%" src="loading.png"></div>
 
 <!-- Image -->
