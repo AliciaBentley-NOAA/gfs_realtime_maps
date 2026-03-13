@@ -23,7 +23,7 @@ module load grib_util/1.2.4
 cyc=$1
 echo "cyc: ${cyc}"
 
-#Logic to determine holddate.txt based $cyc (00, 06, 12, 18)
+######Logic to determine holddate.txt based $cyc (00, 06, 12, 18)
 if [ "$cyc" -ge 18 ]; then
     /bin/date --date="yesterday" +%Y%m%d > holddate.txt
 else
