@@ -51,8 +51,10 @@ export CASE='realtime'
 # Location of your saved GFS/GEFS evaluation /plot_maps directory
 export SCRIPTS_PATH='/lfs/h2/emc/vpppg/save/'${USER}'/gfs_realtime_maps/plot_maps'
 
-# Location of downloaded forecast/analysis files
-#export DATA_PATH='/lfs/h2/emc/gfstemp/emc.global/comroot/retrov17_01_realtime/'
+# Location of forecast files
+export DATA_PATH='/lfs/h2/emc/gfstemp/emc.global/comroot/retrov17_01_realtime'
+#export DATA_PATH='/lfs/h2/emc/gfstemp/emc.global/EVS_archive/retrov17_01'
+#export DATA_PATH='/lfs/h2/emc/vpppg/noscrub/alicia.bentley/GFSv17archive/data'
 
 # Location to plot maps
 export MAP_PATH='/lfs/h2/emc/vpppg/noscrub/'${USER}'/gfs_realtime_maps/maps'
@@ -80,7 +82,7 @@ export DOMAIN_ARRAY='conus'
 
 if [ $PLOT_GFS_FCSTS = YES ]; then
         echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate}${cyc} for ${DOMAIN_ARRAY})"
-        ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $DOMAIN_ARRAY
+        ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $DOMAIN_ARRAY $DATA_PATH
         sleep 2
 fi
 

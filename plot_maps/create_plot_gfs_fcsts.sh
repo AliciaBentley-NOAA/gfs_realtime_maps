@@ -9,7 +9,8 @@ echo output path: ${OUTPUT_PATH}
 INITDATE=$1
 CYC=$2
 DOMAIN=$3
-echo ${INITDATE} ${CYC} ${DOMAIN}
+DATA_PATH=$4
+echo ${INITDATE} ${CYC} ${DOMAIN} ${DATA_PATH}
 
 mkdir -p ${OUTPUT_PATH}
 mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/850T
@@ -50,7 +51,7 @@ cp ${SCRIPTS_PATH}/plot_gfs_850T_3panel.py .
 
         #export FHHH=${FHR}
 
-        python plot_gfs_850T_3panel.py ${INITDATE} ${CYC} ${DOMAIN}
+        python plot_gfs_850T_3panel.py ${INITDATE} ${CYC} ${DOMAIN} ${DATA_PATH}
         sleep 3
 
 exit
@@ -99,7 +100,7 @@ cp ${SCRIPTS_PATH}/plot_gfs_mslp_3panel_part1.py .
 
 	#export FHHH=${FHR}
 
-	python plot_gfs_mslp_3panel_part1.py ${INITDATE} ${CYC} ${DOMAIN}
+	python plot_gfs_mslp_3panel_part1.py ${INITDATE} ${CYC} ${DOMAIN} ${DATA_PATH}
         sleep 3
 
 exit
@@ -148,7 +149,7 @@ cp ${SCRIPTS_PATH}/plot_gfs_mslp_3panel_part2.py .
 
         #export FHHH=${FHR}
 
-        python plot_gfs_mslp_3panel_part2.py ${INITDATE} ${CYC} ${DOMAIN}
+        python plot_gfs_mslp_3panel_part2.py ${INITDATE} ${CYC} ${DOMAIN} ${DATA_PATH}
         sleep 3
 
 exit
@@ -197,7 +198,7 @@ cp ${SCRIPTS_PATH}/plot_gfs_500Z_3panel.py .
 
         #export FHHH=${FHR}
 
-        python plot_gfs_500Z_3panel.py ${INITDATE} ${CYC} ${DOMAIN}
+        python plot_gfs_500Z_3panel.py ${INITDATE} ${CYC} ${DOMAIN} ${DATA_PATH}
         sleep 3
 
 exit

@@ -25,6 +25,7 @@ pdy = str(sys.argv[1])             #20251120
 cyc = str(sys.argv[2])		   #12 
 #fhr = str(sys.argv[3])             #24 
 grid = str(sys.argv[3])            #conus
+DATA_PATH = str(sys.argv[4])  
 show_colorbar="yes"
 
 print("pdy:", pdy)
@@ -72,9 +73,7 @@ for fhr in range(0, 61, 6):
         mslp_data_v16 = mslp_msg_v16.data / 100.0  # Convert Pa to hPa/mb
 
     # Open GFSv17 GRIB2 file and extract parameters
-    #filename_gfsv17 = f"/lfs/h2/emc/vpppg/noscrub/alicia.bentley/GFSv17archive/data/gfs.{pdy}/{cyc}/products/atmos/grib2/0p25/gfs.t{cyc}z.pres_a.0p25.f{fhr_str}.grib2"
-    #filename_gfsv17 = f"/lfs/h2/emc/gfstemp/emc.global/EVS_archive/retrov17_01/gfs.{pdy}/{cyc}/products/atmos/grib2/0p25/gfs.t{cyc}z.pres_a.0p25.f{fhr_str}.grib2"
-    filename_gfsv17 = f"/lfs/h2/emc/gfstemp/emc.global/comroot/retrov17_01_realtime/gfs.{pdy}/{cyc}/products/atmos/grib2/0p25/gfs.t{cyc}z.pres_a.0p25.f{fhr_str}.grib2"
+    filename_gfsv17 = f"{DATA_PATH}/gfs.{pdy}/{cyc}/products/atmos/grib2/0p25/gfs.t{cyc}z.pres_a.0p25.f{fhr_str}.grib2"
     with grib2io.open(filename_gfsv17) as f_v17:
 
         # Select the specific messages we want

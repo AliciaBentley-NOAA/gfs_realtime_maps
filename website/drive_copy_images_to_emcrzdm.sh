@@ -30,6 +30,8 @@ else
     yyyymmdd=$(/bin/date +%Y%m%d)
 fi
 
+#yyyymmdd=20260324
+
 sleep 1
 echo $yyyymmdd$cyc
 
