@@ -41,7 +41,7 @@ for (( h=0; h<=192; h+=6 )); do
 
 #    for plot_type in "${plot_types[@]}"; do
         local_path="/lfs/h2/emc/vpppg/noscrub/alicia.bentley/gfs_realtime_maps/maps/gfs/${YYYYMMDD}${HH}/conus/${plot_type}"
-        remote_path="/home/people/emc/www/htdocs/users/meg/gfsv17/realtime/images/conus/${plot_type}/p${FFF}"
+        remote_path="/home/people/emc/www/htdocs/users/verification_restricted/global/gfsv17/realtime/images/conus/${plot_type}/p${FFF}"
         
         if [ -d "$local_path" ]; then
             echo "Copying to emcrzdm: ${YYYYMMDD}${HH} | Offset: p${FFF} | conus | Type: ${plot_type}"
@@ -69,7 +69,7 @@ sleep 3
 
 # 7. SCP the index.php to the web server
 if [ ${plot_type} == "500Z" ]; then
-    scp /lfs/h2/emc/vpppg/save/alicia.bentley/gfs_realtime_maps/website/index.php abentley@emcrzdm:/home/people/emc/www/htdocs/users/meg/gfsv17/realtime/.
+    scp /lfs/h2/emc/vpppg/save/alicia.bentley/gfs_realtime_maps/website/index.php abentley@emcrzdm:/home/people/emc/www/htdocs/users/verification_restricted/global/gfsv17/realtime/.
 fi
 
 echo "------------------------------------------------"

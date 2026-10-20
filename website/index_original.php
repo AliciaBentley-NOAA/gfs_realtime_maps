@@ -108,7 +108,7 @@ When constructing the URL below, DDD = domain, VVV = variable, XXX = hours diffe
 For X and Y, labeling one X or Y represents an integer (e.g. 0, 10, 20). Multiple of these represent a string
 format (e.g. XX = 00, 06, 12 --- XXX = 000, 006, 012).
 */
-var url = "https://www.emc.ncep.noaa.gov/users/meg/gfsv17/realtime/images/DDD/VVV/pXXX/image_Y.png";
+var url = "https://www.emc.ncep.noaa.gov/users/verification_restricted/global/gfsv17/realtime/images/DDD/VVV/pXXX/image_Y.png";
 
 //====================================================================================================
 //Add variables & domains
