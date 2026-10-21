@@ -130,6 +130,10 @@ variables.push({
         displayName: "850-hPa Temperature",
         name: "850T",
 });
+variables.push({
+        displayName: "2-m Temperature",
+        name: "2mT",
+});
 
 
 
