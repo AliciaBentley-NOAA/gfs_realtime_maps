@@ -134,7 +134,10 @@ variables.push({
         displayName: "2-m Temperature",
         name: "2mT",
 });
-
+variables.push({
+        displayName: "Significant Wave Height",
+        name: "htsgw",
+});
 
 
 domains.push({

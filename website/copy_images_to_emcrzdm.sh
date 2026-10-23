@@ -9,7 +9,7 @@ start_hh=$2
 echo "Most recent run: ${start_date}${start_hh}"
 
 # 3. Define and Echo Plot Types
-#plot_types=("mslp" "500Z" "850T" "2mT")
+#plot_types=("mslp" "500Z" "850T" "2mT" "htsgw")
 plot_type=$3
 echo "------------------------------------------------"
 #echo "Copying Plot Types: ${plot_types[@]}"

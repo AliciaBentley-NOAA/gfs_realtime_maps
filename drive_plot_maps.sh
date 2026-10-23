@@ -83,7 +83,7 @@ export DOMAIN_ARRAY='conus'
 if [ $PLOT_GFS_FCSTS = YES ]; then
         echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate}${cyc} for ${DOMAIN_ARRAY})"
         ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $DOMAIN_ARRAY $DATA_PATH
-        sleep 2
+	sleep 2
 fi
 
 #done

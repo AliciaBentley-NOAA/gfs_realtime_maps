@@ -42,7 +42,7 @@ export SCRIPTS_PATH='/lfs/h2/emc/vpppg/save/'${USER}'/gfs_realtime_maps/website'
 #===============================================================================================================
 
 # Specify the plot types that will be copied from WCOSS2 to emcrzdm (e.g., 500Z, mslp, 850T)
-for plot_type in 500Z mslp 850T 2mT; do
+for plot_type in 500Z mslp 850T 2mT htsgw; do
 
     echo "Kicking off script to copy ${plot_type} images from WCOSS2 to emcrzdm for $yyyymmdd$cyc"
     
