@@ -24,6 +24,9 @@ echo "------------------------------------------------"
 echo "Anchor Run: ${start_date} ${start_hh}Z"
 echo "------------------------------------------------"
 
+# Define domains to loop through
+domains=("conus" "northamer")
+
 # 5. Loop 192 hours BACKWARD in 6-hour steps
 for (( h=0; h<=192; h+=6 )); do
     
@@ -39,12 +42,12 @@ for (( h=0; h<=192; h+=6 )); do
     # This increments by 006 every loop regardless of directory presence
     FFF=$(printf "%03d" $h)
 
-#    for plot_type in "${plot_types[@]}"; do
-        local_path="/lfs/h2/emc/vpppg/noscrub/alicia.bentley/gfs_realtime_maps/maps/gfs/${YYYYMMDD}${HH}/conus/${plot_type}"
-        remote_path="/home/people/emc/www/htdocs/users/verification_restricted/global/gfsv17/realtime/images/conus/${plot_type}/p${FFF}"
+    for domain in "${domains[@]}"; do
+        local_path="/lfs/h2/emc/vpppg/noscrub/alicia.bentley/gfs_realtime_maps/maps/gfs/${YYYYMMDD}${HH}/${domain}/${plot_type}"
+        remote_path="/home/people/emc/www/htdocs/users/verification_restricted/global/gfsv17/realtime/images/${domain}/${plot_type}/p${FFF}"
         
         if [ -d "$local_path" ]; then
-            echo "Copying to emcrzdm: ${YYYYMMDD}${HH} | Offset: p${FFF} | conus | Type: ${plot_type}"
+            echo "Copying to emcrzdm: ${YYYYMMDD}${HH} | Offset: p${FFF} | Domain: ${domain} | Type: ${plot_type}"
             
             # 1. Remotely remove old images in that specific FFF folder
             ssh abentley@emcrzdm "rm -f ${remote_path}/image*.png"
@@ -54,7 +57,7 @@ for (( h=0; h<=192; h+=6 )); do
         else
             echo "Skipping Transfer: ${local_path} not found."
         fi
-#    done
+    done
 done
 
 echo "------------------------------------------------"

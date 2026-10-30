@@ -171,7 +171,10 @@ for fhr in range(0, 193, 6):
         ax.add_feature(cfeature.STATES, edgecolor='gray', linewidth=1.5, alpha=0.5)
 
         # Define domain
-        ax.set_extent([-130, -65, 20, 56], crs=ccrs.PlateCarree())
+        if grid == "conus":
+            ax.set_extent([-130, -65, 20, 56], crs=ccrs.PlateCarree())
+        elif grid == "northamer":
+            ax.set_extent([-170, -30, 10, 85], crs=ccrs.PlateCarree())
 
         # Check if we are on the third panel and apply special cmap
         if i == 2:

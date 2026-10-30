@@ -130,14 +130,6 @@ for fhr in range(0, 193, 6):
     # Define a 2x2 grid
     gs = gridspec.GridSpec(2, 2, figure=fig)
 
-    # Define the specific normalization (Panels 1 & 2)
-    #htsgw_norm = mcolors.Normalize(vmin=0, vmax=16)
-    #htsgw_levels = np.arange(0, 17, 1)
-
-    # New normalization for the difference plot so that near 0 is white
-    diff_norm = mcolors.TwoSlopeNorm(vcenter=0, vmin=-15, vmax=15)
-    diff_levels = np.arange(-15, 16, 1)
-
     # Define the NWS/Oceanic-style significant wave height colormap
     colors = [
         '#001C47',  # 0-1m: Dark navy
@@ -167,17 +159,24 @@ for fhr in range(0, 193, 6):
     htsgw_levels = list(range(0, 17))  # [0, 1, 2, ..., 16]
     htsgw_norm = mcolors.BoundaryNorm(htsgw_levels, wave_cmap.N)
 
+    # New normalization for the difference plot so that near 0 is white
+    diff_levels = np.arange(-15, 15.5, 0.5)
+    n_bins = len(diff_levels) - 1  # 60 bins
+
     # Take 42 colors from the 'seismic' colormap
-    base_cmap = plt.get_cmap('seismic', 42)
-    new_colors = base_cmap(np.linspace(0, 1, 42))
+    base_cmap = plt.get_cmap('seismic', n_bins)
+    new_colors = base_cmap(np.linspace(0, 1, n_bins))
 
     # Force the middle two colors (index 21 and 22) to be white
     # Format is [Red, Green, Blue, Alpha]
-    new_colors[20] = [1, 1, 1, 1]  # Middle-left
-    new_colors[21] = [1, 1, 1, 1]  # Middle-right
+    mid_idx = n_bins // 2  # 30
+    new_colors[mid_idx - 1] = [1, 1, 1, 1]  # [-0.5, 0.0] -> White
+    new_colors[mid_idx] = [1, 1, 1, 1]  # [ 0.0, 0.5] -> White
 
     # Create the new colormap
     white_center_cmap = mcolors.ListedColormap(new_colors)
+    #diff_norm = mcolors.TwoSlopeNorm(vcenter=0, vmin=-15, vmax=15)
+    diff_norm = mcolors.BoundaryNorm(boundaries=diff_levels, ncolors=n_bins)
     print('Created new colormap!')
 
     # Update configs with specific 'norm' and 'levels'
@@ -203,7 +202,10 @@ for fhr in range(0, 193, 6):
         ax.add_feature(cfeature.STATES, edgecolor='gray', linewidth=1.5, alpha=0.5)
 
         # Define domain
-        ax.set_extent([-130, -65, 20, 56], crs=ccrs.PlateCarree())
+        if grid == "conus":
+            ax.set_extent([-130, -65, 20, 56], crs=ccrs.PlateCarree())
+        elif grid == "northamer":
+            ax.set_extent([-170, -30, 10, 85], crs=ccrs.PlateCarree())
 
         # Check if we are on the third panel and apply special cmap
         if i == 2:

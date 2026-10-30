@@ -23,17 +23,17 @@ module load grib_util/1.2.4
 cyc=$1
 echo "cyc: ${cyc}"
 
-######Logic to determine holddate.txt based $cyc (00, 06, 12, 18)
+######Logic to determine test_holddate.txt based $cyc (00, 06, 12, 18)
 #if [ "$cyc" -ge 18 ]; then
-#    /bin/date --date="yesterday" +%Y%m%d > holddate.txt
+#    /bin/date --date="yesterday" +%Y%m%d > test_holddate.txt
 #else
-#    /bin/date +%Y%m%d > holddate.txt
+#    /bin/date +%Y%m%d > test_holddate.txt
 #fi
 
 sleep 1
-year=`cut -c 1-4 holddate.txt`
-month=`cut -c 5-6 holddate.txt`
-day=`cut -c 7-8 holddate.txt`
+year=`cut -c 1-4 test_holddate.txt`
+month=`cut -c 5-6 test_holddate.txt`
+day=`cut -c 7-8 test_holddate.txt`
 export longdate=${year}${month}${day}
 echo $longdate$cyc
 
@@ -70,23 +70,20 @@ export PLOT_GFS_FCSTS=YES
 
 # Specify the domains to plot. This must be written as: 'domain1,domain2,...' (with no spaces)
 # Example input: 'conus,northeast'
-export DOMAIN_ARRAY='conus'
-
-# Specify the forecast hours (HHH format) to plot (typically every 6 hours from F000 to F240
-#for fhr in 078
-#do
+export DOMAIN_LIST="conus northamer"
 
 #===============================================================================================================        
 #===============================================  END CHANGES  =================================================
 #===============================================================================================================
 
-if [ $PLOT_GFS_FCSTS = YES ]; then
-        echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate}${cyc} for ${DOMAIN_ARRAY})"
-#        ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $DOMAIN_ARRAY $DATA_PATH
-        ${SCRIPTS_PATH}/test_create_plot_gfs_fcsts.sh $longdate $cyc $DOMAIN_ARRAY $DATA_PATH
-	sleep 2
+if [ "$PLOT_GFS_FCSTS" = "YES" ]; then
+    for domain in $DOMAIN_LIST; do
+        echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate}${cyc} for ${domain})"
+        ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $domain $DATA_PATH
+#       ${SCRIPTS_PATH}/test_create_plot_gfs_fcsts.sh "$longdate" "$cyc" "$domain" "$DATA_PATH"
+        sleep 2
+    done
 fi
 
-#done
 
 exit

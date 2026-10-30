@@ -70,22 +70,19 @@ export PLOT_GFS_FCSTS=YES
 
 # Specify the domains to plot. This must be written as: 'domain1,domain2,...' (with no spaces)
 # Example input: 'conus,northeast'
-export DOMAIN_ARRAY='conus'
-
-# Specify the forecast hours (HHH format) to plot (typically every 6 hours from F000 to F240
-#for fhr in 078
-#do
+export DOMAIN_LIST="conus northamer"
 
 #===============================================================================================================        
 #===============================================  END CHANGES  =================================================
 #===============================================================================================================
 
-if [ $PLOT_GFS_FCSTS = YES ]; then
-        echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate}${cyc} for ${DOMAIN_ARRAY})"
-        ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $DOMAIN_ARRAY $DATA_PATH
-	sleep 2
+if [ "$PLOT_GFS_FCSTS" = "YES" ]; then
+    for domain in $DOMAIN_LIST; do
+        echo "Create/submit scripts to plot real-time GFS forecasts (Init.: ${longdate}${cyc} for ${domain})"
+        ${SCRIPTS_PATH}/create_plot_gfs_fcsts.sh $longdate $cyc $domain $DATA_PATH
+        sleep 2
+    done
 fi
 
-#done
 
 exit

@@ -119,10 +119,6 @@ var domains = [];
 var maptypes = [];
 
 variables.push({
-	displayName: "Mean Sea Level Pressure",
-	name: "mslp",
-});
-variables.push({
         displayName: "500-hPa Geopotential Height",
         name: "500Z",
 });
@@ -135,14 +131,27 @@ variables.push({
         name: "2mT",
 });
 variables.push({
+        displayName: "Mean Sea Level Pressure",
+        name: "mslp",
+});
+variables.push({
         displayName: "Significant Wave Height",
         name: "htsgw",
 });
+variables.push({
+        displayName: "10-m Wind Speed",
+        name: "ws10m",
+});
+
 
 
 domains.push({
 	displayName: "CONUS",
 	name: "conus",
+});
+domains.push({
+        displayName: "North America",
+        name: "northamer",
 });
 
 

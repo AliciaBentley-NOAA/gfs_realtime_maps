@@ -13,18 +13,18 @@ DATA_PATH=$4
 echo ${INITDATE} ${CYC} ${DOMAIN} ${DATA_PATH}
 
 mkdir -p ${OUTPUT_PATH}
-mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/htsgw
+mkdir -p ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/ws10m
 
 #################################################################################################
 #-----------------------------------------------------------------------------------------
-# Creating a job to plot htsgw GFS forecasts for a particular init. date and cycle
+# Creating a job to plot ws10m GFS forecasts for a particular init. date and cycle
 #-----------------------------------------------------------------------------------------
 
-cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/htsgw/kickoff_plot_gfs_htsgw_3panel.py <<EOF
+cat > ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/ws10m/kickoff_plot_gfs_ws10m_3panel.py <<EOF
 #!/bin/bash
-#PBS -N gfs_htsgw_plot
-#PBS -o ${OUTPUT_PATH}/out_plot_gfs_htsgw_${INITDATE}${CYC}.out
-#PBS -e ${OUTPUT_PATH}/out_plot_gfs_htsgw_${INITDATE}${CYC}.err
+#PBS -N gfs_ws10m_plot
+#PBS -o ${OUTPUT_PATH}/out_plot_gfs_ws10m_${INITDATE}${CYC}.out
+#PBS -e ${OUTPUT_PATH}/out_plot_gfs_ws10m_${INITDATE}${CYC}.err
 #PBS -l select=1:ncpus=1:mem=100GB
 #PBS -q dev
 #PBS -l walltime=00:50:00
@@ -44,12 +44,12 @@ module load wgrib2/2.0.8_wmo
 module load libjpeg/9c
 module load grib_util/1.2.4
 
-cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/htsgw
-cp ${SCRIPTS_PATH}/plot_gfs_htsgw_3panel.py .
+cd ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/ws10m
+cp ${SCRIPTS_PATH}/plot_gfs_ws10m_3panel.py .
 
         #export FHHH=${FHR}
 
-        python plot_gfs_htsgw_3panel.py ${INITDATE} ${CYC} ${DOMAIN} ${DATA_PATH}
+        python plot_gfs_ws10m_3panel.py ${INITDATE} ${CYC} ${DOMAIN} ${DATA_PATH}
         sleep 3
 
 exit
@@ -58,9 +58,9 @@ EOF
 
 #----------------------------------------------------------------------------------------
 
-qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/htsgw/kickoff_plot_gfs_htsgw_3panel.py
+qsub ${MAP_PATH}/gfs/${INITDATE}${CYC}/${DOMAIN}/ws10m/kickoff_plot_gfs_ws10m_3panel.py
 sleep 3
-echo Submitted htsgw plots job! 
+echo Submitted ws10m plots job! 
 
 #----------------------------------------------------------------------------------------
 
